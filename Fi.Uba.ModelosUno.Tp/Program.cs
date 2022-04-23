@@ -30,3 +30,34 @@ for (int i = posicionDemandasInicial + 1; i < posicionDemandasFinal; i++)
     });
 }
 
+var cargaActual = 0;
+List<BancoDemanda> bancosRecorrido = new List<BancoDemanda>();
+
+// Por ahora agrego el primer banco de los que tengo demanda
+var bancosPendientes = bancoDemandas;
+bancosRecorrido.Add(bancoDemandas.First());
+
+//Cual es la sucursal mas cerca.
+//Tengo capacidad para atender a esa sucursal? 
+//- SI: atiendo y paso a la que sigue.
+//- NO: busco la siguiente sucursal cerca y vuelvo a ver si la puedo atender.
+while (bancosPendientes.Count > 1)
+{
+    // Tomo el ultimo banco recorrido que es en donde esta el camion actualmente
+    var bancoOrigen = bancosRecorrido.LastOrDefault();
+    var bancosDestinosPendientes = bancosPendientes.Where(x => x != bancoOrigen);
+
+    // Busco la sucursal a menor distancia
+    var distancias = bancosDestinosPendientes.Select(x => new KeyValuePair<string, double>(x.Nombre, bancoOrigen.Distancia(x)));
+    var minDistancia = distancias.Min(x => x.Value);
+    var bancoMinDistancia = distancias.FirstOrDefault(x => x.Value == minDistancia);
+    var bancoDemandaMinDistancia = bancosPendientes.FirstOrDefault(x => x.Nombre == bancoMinDistancia.Key);
+    // Por ahora no tengo en cuenta ninguna restriccion, solo busco los bancos que tienen menor distancia
+    bancosPendientes = bancosPendientes.Where(x => x != bancoOrigen).ToList();
+    bancosRecorrido.Add(bancoDemandaMinDistancia);
+}
+
+foreach (var item in bancosRecorrido)
+{
+    Console.WriteLine(item.Nombre);
+}
