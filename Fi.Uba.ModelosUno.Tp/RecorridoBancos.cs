@@ -1,9 +1,4 @@
 ﻿using Fi.Uba.ModelosUno.Tp.Entidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Fi.Uba.ModelosUno.Tp
 {
@@ -27,7 +22,7 @@ namespace Fi.Uba.ModelosUno.Tp
             //Supongo que desde la sede central a todos los bancos la distancia no importa.
             //Cual es la sucursal mas cerca.
             //Tengo capacidad para atender a esa sucursal? 
-            //- SI: atiendo y paso a la que sigue.
+            //- SI: atiendo la sucursal y paso a la que sigue.
             //- NO: bloqueo esa sucursal, busco la siguiente mas cerca y vuelvo a ver si la puedo atender.
             while (bancosPendientes.Count > 0)
             {
