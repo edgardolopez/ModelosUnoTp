@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fi.Uba.ModelosUno.Tp
+﻿namespace Fi.Uba.ModelosUno.Tp.Entidades
 {
     public class BancoDemanda
     {
@@ -15,8 +9,9 @@ namespace Fi.Uba.ModelosUno.Tp
         public double CoordenadaY { get; set; }
 
 
-        public double Distancia(BancoDemanda bancoDestino) {
-            //La distancia entre las sucursales i y j es sqrt((Xi-Xj)^2+(Yi-Yj)^2)
+        //La distancia entre las sucursales i y j es sqrt((Xi-Xj)^2+(Yi-Yj)^2)
+        public double Distancia(BancoDemanda bancoDestino)
+        {
             var inicial = Math.Pow(this.CoordenadaX - bancoDestino.CoordenadaX, 2);
             var final = Math.Pow(this.CoordenadaY - bancoDestino.CoordenadaY, 2);
             return Math.Sqrt(inicial + final);
