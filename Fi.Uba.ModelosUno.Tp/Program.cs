@@ -1,8 +1,8 @@
 ﻿using Fi.Uba.ModelosUno.Tp;
 using Fi.Uba.ModelosUno.Tp.Entidades;
 
-var archivoEntrada = @".\problema_uno.txt";
-var archivoResultado = @".\resultado.txt";
+var archivoEntrada = @".\Files\problema_uno.txt";
+var archivoResultado = @".\Files\resultado.txt";
 
 BancoArchivoEntrada entrada = new LectorArchivosBancos().Leer(archivoEntrada);
 List<BancoDemanda> bancosRecorridos = new RecorridoBancos().ObtenerRecorridoMasCorto(entrada.Bancos, entrada.CapacidadMaximaDeTranporte);
