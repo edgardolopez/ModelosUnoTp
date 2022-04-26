@@ -13,18 +13,31 @@ namespace Fi.Uba.ModelosUno.Tp
 
             //Tomo el primer Banco que tenga que entregar dinero.
             var bancosConMontoMayorACero = bancosPendientes.Where(x => x.Monto >= 0).ToList();
-            
-            // Pondero la distancia de los bancos, le doy mas importancia a los que tienen mas bancos cerca, tomando el que tiene min de la suma de las distancia al resto.
+
+            //// Pondero la distancia de los bancos, le doy mas importancia a los que tienen mas bancos cerca, tomando el que tiene min de la suma de las distancia al resto.
+            //// calculo la distancia entre ellos.
+            //var bancoPoderacionDistancias = new Dictionary<BancoDemanda, double>();
+            //bancosConMontoMayorACero.ForEach(bancoPendiente =>
+            //{
+            //    var distancias = bancosPendientes.Select(x => new KeyValuePair<string, double>(x.Nombre, bancoPendiente.Distancia(x))).Sum(y => y.Value);
+            //    bancoPoderacionDistancias.Add(bancoPendiente, distancias);
+            //});
+            //var minDistanciaPonderada = bancoPoderacionDistancias.Min(x => x.Value);
+            //var bancoSeleccionado = bancoPoderacionDistancias.First(x=> x.Value == minDistanciaPonderada);
+            //var primerBanco = bancosConMontoMayorACero.First( x=> x.Nombre == bancoSeleccionado.Key.Nombre);
+
+            // Tomo como primer banco el que tenga mas cerca un banco.
             // calculo la distancia entre ellos.
             var bancoPoderacionDistancias = new Dictionary<BancoDemanda, double>();
             bancosConMontoMayorACero.ForEach(bancoPendiente =>
             {
-                var distancias = bancosPendientes.Select(x => new KeyValuePair<string, double>(x.Nombre, bancoPendiente.Distancia(x))).Sum(y => y.Value);
+                var distancias = bancosPendientes.Select(x => new KeyValuePair<string, double>(x.Nombre, bancoPendiente.Distancia(x))).Min(x=> x.Value);
                 bancoPoderacionDistancias.Add(bancoPendiente, distancias);
             });
+
             var minDistanciaPonderada = bancoPoderacionDistancias.Min(x => x.Value);
-            var bancoSeleccionado = bancoPoderacionDistancias.First(x=> x.Value == minDistanciaPonderada);
-            var primerBanco = bancosConMontoMayorACero.First( x=> x.Nombre == bancoSeleccionado.Key.Nombre);
+            var bancoSeleccionado = bancoPoderacionDistancias.First(x => x.Value == minDistanciaPonderada);
+            var primerBanco = bancosConMontoMayorACero.First(x => x.Nombre == bancoSeleccionado.Key.Nombre);
 
             cargaActual += primerBanco.Monto;
             bancosRecorridos.Add(primerBanco);
